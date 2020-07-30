@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+    <title>쇼핑몰 다시 혼자서 만들어보기 !</title>
+
+    <style>
+        .bigpicture {
+            background-image: url("https://image.fmkorea.com/files/attach/new/20190717/4477817/1893469599/1998742310/cc6881b69b8238bfbb9cd84bf8b1d0bd.jpeg");
+            width: 500px;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .scsc {
+            font-size: 15px;
+        }
+
+        .brbr {
+            width: 500px;
+        }
+
+        .centerbutton {
+            display: block;
+            margin: auto;
+        }
+
+        * {
+           font-family: 'Nanum Gothic', sans-serif;
+            margin: auto;
+        }
+    </style>
+    <script>
+        function pshpsh() {
+            alert("주문이 완료되었습니다. 감사합니다!")
+        }
+    </script>
+
+
+</head>
+
+<body>
+<div class="brbr">
+    <div class="bigpicture">
+    </div>
+    <div>
+        <h1>마르지엘라 팝니다<span class="scsc">가격:400,000/ 개</span></h1>
+        <h6 class="brbr">
+            이 상품은 제가 신어보진 않았지만 이쁩니다ㅁㄴㅇㄻㄻㄴㄺㅅㅈ곤ㄹㅇㄷㅁㄳㄴ옿ㄴㄷㅇㄹ휴ㅗㅛㅇㄴㅅㅁㄱㄷㅈㅁㄱ4ㄴㅅㅎㅇ륯ㅌㅍㅇㄷㄱㅁㅅ
+    </div>
+
+    <h1>주문하기</h1>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">주문자 이름:</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">수량</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01">
+            <option selected>골라주세요...</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">주소</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default">
+    </div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroup-sizing-default">전화번호</span>
+        </div>
+        <input type="text" class="form-control" aria-label="Sizing example input"
+               aria-describedby="inputGroup-sizing-default">
+    </div>
+
+
+    <button onclick="pshpsh()" type="button" class="btn btn-success centerbutton">주문하기</button>
+
+</div>
+
+</body>
+
+</html>
