@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <!-- Webpage Title -->
+        <title>나홀로 쇼핑몰</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+
+        <!-- 구글폰트 -->
+        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+        <script type="text/javascript">
+
+            function order() {
+                // 주문하기눌렀을떄 input값 가져오고, 비어있으면 알람, post방식으로 ajax이용, 데이터 쏘는거까지
+                // 데이터 쏠때 딕셔너리 형태아니다!!! 따옴표 안찍음!! 그리고 키값에 준걸 서버에서 받음
+                //ajax 끝에 window.location.reload(); 이걸 해줘야 showorder함수가 실행됨
+                let or_name = $('#order-name').val();
+                let or_count = $('#order-count').val();
+                let or_address = $('#order-address').val();
+                let or_phone = $('#order-phone').val();
+
+                if (or_name == ''){
+                    alert('이름을 입력해 주세요')
+                }else if (or_count == ''){
+                    alert('수량을 입력해 주세요')
+                }else if (or_address == ''){
+                    alert('주소를 입력해 주세요')
+                }else if (or_phone == ''){
+                    alert('전화번호를 입력해 주세요')
+                }
+                // 사용자로부터 HTML에서 가져온 데이터들을 val()로 받아오고,
+                //받아온걸 ajax로 다시 넘겨줌! 그래서 서버에서 db로 저장할 수 있도록
+                $.ajax({
+                    type: "POST",
+                    url: "/order",
+                    data: { name_give: or_name,
+                        count_give: or_count,
+                        address_give: or_address,
+                        phone_give: or_phone  },
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            alert(response["msg"]);
+                            window.location.reload();
+                        }
+                //여기서 /order API로부터 JSON형식의 데이터받아서 확인하는 용도로 alert사용,
+                    }
+                })
+
+
+            }
+
+            $(document).ready(function () {
+                $("#orders-box").html("");
+                showOrders();
+            });
+                //위에꺼 실행 끝나면, order-box에있던 html초기화 & Load가 끝나면 showOrders 함수 실행
+            function showOrders() {
+                // 데이터 서버로부터 get방식으로 다 가져와서 하나하나 html에다가 붙이는 거!
+                // GET방식이니까 여기서는 데이터를 보낼건 하나도 없음.
+                $.ajax({
+                    type: "GET",
+                    url: "/order",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            let all_data = response['all_orders'];
+                            for (i=0; i<all_data.length; i++){
+                            let ord_name= all_data[i]['name'];
+                            let ord_count= all_data[i]['count'];
+                            let ord_address= all_data[i]['address'];
+                            let ord_phone= all_data[i]['phone'];
+
+                            temp_html=`<tr>
+                                        <td>${ord_name}</td>
+                                        <td>${ord_count}</td>
+                                        <td>${ord_address}</td>
+                                        <td>${ord_phone}</td>
+                                    </tr>`
+                            $('#orders-box').append(temp_html)
+
+                            }
+                        }
+                        }
+                })
+            }
+
+
+        </script>
+
+        <style type="text/css">
+            * {
+                font-family: "Stylish", sans-serif;
+            }
+
+            h1, h5 {
+                display: inline;
+            }
+
+            .wrap {
+                width: 500px;
+                margin: auto;
+            }
+
+            .img {
+                background-image: url("https://www.conscious-skincare.com/wp-content/uploads/2016/02/glc-candle-lit-with-new-gift-box.jpg");
+                background-size: cover;
+                background-position: center;
+                width: 500px;
+                height: 300px;
+            }
+
+            .info {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .order {
+                text-align: center;
+            }
+
+            .orders {
+                margin-top: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="img"></div>
+            <div class="info">
+                <h1>양초를 팝니다</h1>
+                <h5>가격: 3,000 원 / 개</h5>
+                <p>이 양초는 사실 특별한 힘을 가지고 있어요. 양초를 켜고 소원을 빌면 짜자잔 뭐든지 이뤄지게 된답니다. 하나 사가세요! 대나무 향이 아주 좋아요</p>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주문자 이름</span>
+                    </div>
+                    <input type="text" class="form-control" id="order-name">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="order-count">수량</label>
+                    </div>
+                    <select class="custom-select" id="order-count">
+                        <option selected value=""> -- 수량을 선택하세요 --</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주소</span>
+                    </div>
+                    <input type="text" class="form-control" id="order-address">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">전화번호</span>
+                    </div>
+                    <input type="text" class="form-control" id="order-phone">
+                </div>
+                <div class="order">
+                    <button onclick="order()" type="button" class="btn btn-primary">주문하기</button>
+                </div>
+            </div>
+            <div class="orders">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">이름</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">전화번호</th>
+                    </tr>
+                    </thead>
+                    <tbody id="orders-box">
+                    <tr>
+                        <td>박르탄</td>
+                        <td>3</td>
+                        <td>스파르타국 코딩시 프론트구</td>
+                        <td>010-1234-5678</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
